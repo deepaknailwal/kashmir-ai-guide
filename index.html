@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kashmir AI Smart Guide</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top, #0ea5e9, #020617);
+      font-family: Arial;
+      color: white;
+      text-align: center;
+    }
+
+    .container {
+      margin-top: 80px;
+      background: rgba(255,255,255,0.08);
+      padding: 40px;
+      border-radius: 25px;
+      display: inline-block;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 40px rgba(0,0,0,0.5);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    input {
+      padding: 12px;
+      width: 280px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 12px 25px;
+      border-radius: 10px;
+      border: none;
+      background: #22c55e;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #16a34a;
+      transform: scale(1.05);
+    }
+
+    #result {
+      margin-top: 25px;
+      font-size: 20px;
+      min-height: 60px;
+    }
+
+    .loading {
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0% {opacity: 0.3;}
+      50% {opacity: 1;}
+      100% {opacity: 0.3;}
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>🏔️ Kashmir Smart AI Guide</h1>
+
+    <input id="input" placeholder="Enter your travel plan...">
+    <br>
+
+    <button onclick="checkPlan()">Analyze Plan</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function checkPlan() {
+      const text = document.getElementById("input").value.toLowerCase();
+      const output = document.getElementById("result");
+
+      // loading effect
+      output.innerHTML = "<span class='loading'>Analyzing...</span>";
+
+      setTimeout(() => {
+        let result = "";
+        let color = "";
+        let risk = "";
+
+        if (text.includes("gulmarg")) {
+          result = "❄️ Gulmarg is safe. Carry warm clothes.";
+          color = "lightgreen";
+          risk = "Low Risk";
+        } 
+        else if (text.includes("pahalgam")) {
+          result = "🌄 Pahalgam is safe & tourist friendly.";
+          color = "lightgreen";
+          risk = "Low Risk";
+        } 
+        else if (text.includes("sonmarg")) {
+          result = "🏔️ Sonmarg is beautiful but weather sensitive.";
+          color = "orange";
+          risk = "Medium Risk";
+        }
+        else if (text.includes("night") || text.includes("alone")) {
+          result = "⚠️ Avoid isolated travel at night.";
+          color = "red";
+          risk = "High Risk";
+        } 
+        else if (text.includes("snow") || text.includes("storm")) {
+          result = "🌨️ Weather alert! Travel carefully.";
+          color = "orange";
+          risk = "Medium Risk";
+        } 
+        else {
+          result = "✅ Plan looks safe. Stay aware.";
+          color = "lightgreen";
+          risk = "Low Risk";
+        }
+
+        output.innerHTML = result + "<br><br>⚡ Risk Level: " + risk;
+        output.style.color = color;
+
+      }, 1500); // suspense delay
+    }
+  </script>
+
+</body>
+</html>
